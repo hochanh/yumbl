@@ -4,9 +4,9 @@ defmodule Yumbl.Accounts do
 
   def list_users do
     [
-      %User{id: 1, name: "David", username: "david"},
-      %User{id: 2, name: "Tommy", username: "tom"},
-      %User{id: 3, name: "Joe", username: "joe"},
+      %User{id: "1", name: "David", username: "david"},
+      %User{id: "2", name: "Tommy", username: "tom"},
+      %User{id: "3", name: "Joe", username: "joe"},
     ]
   end
 
