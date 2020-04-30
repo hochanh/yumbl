@@ -33,4 +33,17 @@ defmodule Yumbl.Accounts do
     |> User.registration_changeset(attrs)
     |> Repo.insert()
   end
+
+  def authenticate_using_password(username, password) do
+    user = get_user_by(username: username)
+
+    cond do
+      user && Pbkdf2.verify_pass(password, user.password_hash) -> {:ok, user}
+
+      user -> {:error, :unauthorized}
+
+      true -> Pbkdf2.no_user_verify()
+        {:error, :not_found}
+    end
+  end
 end
