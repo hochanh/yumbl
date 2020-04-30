@@ -29,6 +29,5 @@ defmodule YumblWeb.UserController do
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
-
   end
 end
