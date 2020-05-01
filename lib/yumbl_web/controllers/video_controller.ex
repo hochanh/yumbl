@@ -4,6 +4,8 @@ defmodule YumblWeb.VideoController do
   alias Yumbl.Multimedia
   alias Yumbl.Multimedia.Video
 
+  plug :load_categories when action in [:new, :create, :edit, :update]
+
   def index(conn, _params, current_user) do
     videos = Multimedia.list_user_videos(current_user)
     render(conn, "index.html", videos: videos)
@@ -63,5 +65,9 @@ defmodule YumblWeb.VideoController do
   def action(conn, _) do
     args = [conn, conn.params, conn.assigns.current_user]
     apply(__MODULE__, action_name(conn), args)
+  end
+
+  defp load_categories(conn, _) do
+    assign(conn, :categories, Multimedia.list_categories_alphabetically())
   end
 end

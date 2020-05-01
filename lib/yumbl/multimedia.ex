@@ -8,6 +8,7 @@ defmodule Yumbl.Multimedia do
   alias Yumbl.Repo
   alias Yumbl.Accounts
   alias Yumbl.Multimedia.Video
+  alias Yumbl.Multimedia.Category
 
   @doc """
   Returns the list of videos.
@@ -114,6 +115,16 @@ defmodule Yumbl.Multimedia do
     Video
     |> user_video_query(user)
     |> Repo.get!(id)
+  end
+
+  def create_category!(name) do
+    Repo.insert!(%Category{name: name}, on_conflict: :nothing)
+  end
+
+  def list_categories_alphabetically() do
+    Category
+    |> Category.alphabetical()
+    |> Repo.all()
   end
 
   defp user_video_query(query, %Accounts.User{id: user_id}) do
