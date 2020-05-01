@@ -4,7 +4,7 @@ defmodule YumblWeb.UserController do
   alias Yumbl.Accounts
   alias Yumbl.Accounts.User
 
-  plug :authenticate when action in [:index, :show]
+  plug :authenticate_user when action in [:index, :show]
 
   def index(conn, _params) do
     users = Accounts.list_users()
@@ -16,8 +16,8 @@ defmodule YumblWeb.UserController do
     render(conn, "show.html", user: user)
   end
 
-  def new(conn, _params) do
-    changeset = Accounts.change_registration(%User{}, _params)
+  def new(conn, params) do
+    changeset = Accounts.change_registration(%User{}, params)
     render(conn, "new.html", changeset: changeset)
   end
 
@@ -31,17 +31,6 @@ defmodule YumblWeb.UserController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
-    end
-  end
-
-  defp authenticate(conn, _opts) do
-    if conn.assigns.current_user do
-      conn
-    else
-      conn
-      |> put_flash(:error, "Please login first")
-      |> redirect(to: Routes.page_path(conn, :index))
-      |> halt()
     end
   end
 end

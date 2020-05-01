@@ -23,6 +23,7 @@ defmodule YumblWeb do
 
       import Plug.Conn
       import YumblWeb.Gettext
+      import YumblWeb.Auth, only: [authenticate_user: 2]
       alias YumblWeb.Router.Helpers, as: Routes
     end
   end
@@ -47,6 +48,8 @@ defmodule YumblWeb do
 
       import Plug.Conn
       import Phoenix.Controller
+
+      import YumblWeb.Auth, only: [authenticate_user: 2]
     end
   end
 

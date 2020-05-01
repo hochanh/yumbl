@@ -1,4 +1,8 @@
 defmodule YumblWeb.Auth do
+  import Phoenix.Controller
+
+  alias YumblWeb.Router.Helpers, as: Routers
+
   import Plug.Conn
 
   def init(opts), do: opts
@@ -18,5 +22,16 @@ defmodule YumblWeb.Auth do
 
   def logout(conn) do
     configure_session(conn, drop: true)
+  end
+
+  def authenticate_user(conn, _opts) do
+    if conn.assigns.current_user do
+      conn
+    else
+      conn
+      |> put_flash(:error, "Please login first")
+      |> redirect(to: Routers.page_path(conn, :index))
+      |> halt()
+    end
   end
 end
