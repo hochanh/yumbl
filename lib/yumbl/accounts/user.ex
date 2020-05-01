@@ -1,7 +1,6 @@
 defmodule Yumbl.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
-  import Pbkdf2
 
   schema "users" do
     field :name, :string

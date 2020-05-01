@@ -24,6 +24,7 @@ defmodule Yumbl.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Yumbl.DataCase
+      import Yumbl.TestHelpers
     end
   end
 
